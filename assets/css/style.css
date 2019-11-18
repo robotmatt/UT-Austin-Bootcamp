@@ -1,0 +1,26 @@
+.body {
+    width: 960px;
+    margin: auto;
+}
+
+.header {
+    overflow: hidden;
+    width: 960px;
+    margin: auto;
+}
+.footer{
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+.top-left {
+    float: left;
+    background-color: #4aaaa5;
+    font-family: 'Georgia', Times, Times New Roman, serif;
+}
+
+.top-right {
+    float: right;
+    font-family: 'Georgia', Times, Times New Roman, serif;
+}
