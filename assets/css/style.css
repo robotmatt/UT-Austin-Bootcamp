@@ -119,10 +119,10 @@ p{
 .top-right a.center-header {
     border-right: solid;
     border-right-width: 1px;
-    border-right-color: grey;
+    border-right-color: #777777;
     border-left: solid;
     border-left-width: 1px;
-    border-left-color: grey;
+    border-left-color: #777777;
 }
 
 .footer {
@@ -145,10 +145,18 @@ p{
 input,
 textarea {
     width: 95%;
-    padding: 12px 20px;
+    padding: 8px;
     margin: 8px 0;
-    box-sizing: border-box;
-    border-color: #cccccc;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #777777;
+}
+input.submit{
+    width: auto;
+    padding: 10px 30px;
+    margin: 8px 0;
+    color: white;
+    background-color: #4aaaa5;
 }
 
 .item {
