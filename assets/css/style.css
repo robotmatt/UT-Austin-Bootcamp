@@ -16,7 +16,7 @@ body {
     margin: 0 auto;
     background-image: url("../images/doodles.png");
     color: #777777;
-    
+
 }
 
 body div.wrapper {
@@ -28,7 +28,7 @@ body div.wrapper {
     width: 960px;
     margin: 60px auto;
     padding: 60px;
-    
+
 }
 
 .main-content .inside-content {
@@ -56,7 +56,7 @@ body div.wrapper {
     padding-bottom: 25px;
 }
 
-p{
+p {
     line-height: 1.8;
 }
 
@@ -151,7 +151,8 @@ textarea {
     border-width: 1px;
     border-color: #777777;
 }
-input.submit{
+
+input.submit {
     width: auto;
     padding: 10px 30px;
     margin: 8px 0;
