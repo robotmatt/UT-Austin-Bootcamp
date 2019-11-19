@@ -16,7 +16,7 @@ body {
     margin: 0 auto;
     background-image: url("../images/doodles.png");
     color: #777777;
-
+    
 }
 
 body div.wrapper {
@@ -28,6 +28,7 @@ body div.wrapper {
     width: 960px;
     margin: 60px auto;
     padding: 60px;
+    
 }
 
 .main-content .inside-content {
@@ -53,6 +54,10 @@ body div.wrapper {
     border-bottom-style: solid;
     color: #4aaaa5;
     padding-bottom: 25px;
+}
+
+p{
+    line-height: 1.8;
 }
 
 .header {
