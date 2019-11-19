@@ -26,8 +26,8 @@ body div.wrapper {
 
 .main-content {
     width: 960px;
-    margin: 60px auto;
-    padding: 60px;
+    margin: 60px auto 60px;
+    padding: 60px 60px 0px 60px;
 
 }
 
