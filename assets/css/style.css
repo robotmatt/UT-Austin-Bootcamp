@@ -135,9 +135,7 @@ p{
     font-size: 10%;
     height: 50px;
     background-color: #666666;
-    border-top-color: #4aaaa5;
-    border-top-width: 10px;
-    border-top-style: solid;
+    border-top: 8px solid #4aaaa5;
 }
 
 .push {
