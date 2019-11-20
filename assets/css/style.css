@@ -24,14 +24,14 @@ body div.wrapper {
     margin-bottom: -50px;
 }
 
-.main-content {
+main {
     width: 960px;
     margin: 60px auto 60px;
     padding: 60px 60px 0px 60px;
 
 }
 
-.main-content .inside-content {
+main .inside-content {
     border-color: #dddddd;
     border-style: solid;
     border-width: 3px;
@@ -46,7 +46,7 @@ body div.wrapper {
     padding-bottom: 10px;
 }
 
-.main-content h1 {
+main h1 {
     width: 100%;
     background: #ffffff;
     border-bottom-color: #cccccc;
@@ -60,7 +60,7 @@ p {
     line-height: 1.8;
 }
 
-.header {
+header {
     width: 100%;
     position: fixed;
     background: #ffffff;
@@ -91,7 +91,7 @@ p {
     color: white;
 }
 
-.top-right {
+nav {
     float: right;
     padding: 30px;
     display: inline-block;
@@ -100,23 +100,23 @@ p {
     font-size: 1em;
 }
 
-.top-right a {
+nav a {
     color: grey;
 }
 
-.top-right a:link {
+nav a:link {
     text-decoration: none;
 }
 
-.top-right a:visited {
+nav a:visited {
     text-decoration: none;
 }
 
-.top-right a {
+nav a {
     padding: 5px;
 }
 
-.top-right a.center-header {
+nav a.center-header {
     border-right: solid;
     border-right-width: 1px;
     border-right-color: #777777;
@@ -125,7 +125,7 @@ p {
     border-left-color: #777777;
 }
 
-.footer {
+footer {
     width: 100%;
     margin: auto;
     bottom: 0;
