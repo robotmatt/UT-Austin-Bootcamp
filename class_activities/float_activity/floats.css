@@ -8,35 +8,73 @@
 }
 
 body {
+  margin: 0;
 }
 
 header {
   padding: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   color: #333;
   background: #ccc;
 }
 
 section {
+  
 }
 
 #left {
+  background: #666;
+  width:33.33%;
+  float: left;
+  padding: 20px;
+  color: white;
 }
 
 #middle {
+  background: #888;
+  width:33.33%;
+  float: left;
+  padding: 20px;
+  color: white;
 }
 
 #right {
+  background:#666;
+  width:33.33%;
+  float: left;
+  padding: 20px;
+  color: white;
 }
 
 #full {
+  background:#eee;
+  clear: both;
+  padding: 20px 10px;
+  margin: 15px 0px;
 }
 
 #division {
+  background:#6ea3da;
+  padding: 20px;
+  margin: 20px;
 }
 
 aside {
+  background:#fff;
+  float: left;
+  position: absolute;
+  padding: 20px;
+  height: 120px;
+  width: 200px;
 }
 
 footer {
+  background:#ccc;
+  padding: 20px;
+}
+
+.clearfix::after{
+  content: " ";
+  display:block;
+  clear: both;
 }
