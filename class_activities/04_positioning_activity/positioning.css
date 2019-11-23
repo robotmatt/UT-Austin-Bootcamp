@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-family: Georgia, 'Times New Roman', Times, serif;
   }
   
   body {
@@ -31,10 +32,11 @@
       background-color: #999;
       right: -20px;
       bottom: 0;
+      padding: 20px 30px;
   }
 
   .div-relative{
       position: relative;
       background-color: lightgray;
-      padding: 75px 125px;
+      padding: 20px 125px 120px;
   }
