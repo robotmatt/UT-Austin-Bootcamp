@@ -24,18 +24,35 @@
     </header>
 
     <main class="container">
-        <div class="container-md">
-                <h1>Contact</h1>
-                <form id="contact">
-                    <div class="input-label">Name</div>
-                    <input type="text" name="name" placeholder="John Smith"><br>
-                    <div class="input-label">Email</div>
-                    <input type="email" name="email" placeholder="example@gmail.com"><br>
-                    <div class="input-label">Message</div>
-                    <textarea rows="7" cols="60" form="contact"></textarea>
-                    <input type="submit" class="submit">
+        <div class="row container-md">
+            <div class="col-md-8 mb-4">
+                <h2>Contact</h2>
+                <form id="contact" class="needs-validation">
+                    
+                    <div class="col-md-12 mb-3">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" placeholder="John Smith" class="form-control">
+                        <div class="invalid-feedback"> Valid name is required.</div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                            <label for="name">Email</label>
+                            <input type="email" name="email" placeholder="example@gmail.com" class="form-control">
+                            <div class="invalid-feedback"> Valid email is required.</div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                                <label for="message">Message</label>
+                                <textarea class="form-control" id="message" rows="3"></textarea>
+                                
+                              </div>
+                              <div class="col-md-12 mb-3">
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                              </div>
+                        
+                              
                 </form>
+            </div>
         </div>
+
 
     </main>
     </div>
