@@ -234,11 +234,12 @@ input.submit {
     main .inside-content {
         width: 420px;
     }
+
     .inside-content img {
         float: none;
         width: 100%;
     }
-    
+
     .top-left {
         float: none;
         width: 100%;
@@ -254,7 +255,7 @@ input.submit {
         font-size: 1.2em;
         color: white;
     }
-    
+
     nav {
         float: none;
         padding: 20px;
@@ -263,11 +264,13 @@ input.submit {
         font-family: 'Georgia', Times, Times New Roman, serif;
         font-size: 1em;
     }
-    header{
+
+    header {
         position: static;
         padding: 0;
     }
-    main{
+
+    main {
         width: 640px;
         margin: 0 auto;
         padding: 20px 20px 0 20px;
