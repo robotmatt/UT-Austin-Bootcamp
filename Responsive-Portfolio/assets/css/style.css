@@ -69,6 +69,7 @@ header {
     border-bottom-width: 2px;
     border-bottom-style: solid;
     top: 0;
+    text-align: center;
 }
 
 .inside-header {
@@ -243,7 +244,7 @@ input.submit {
         width: 100%;
         margin: 0;
         background-color: #4aaaa5;
-        padding: 20px;
+        padding: 20px 0;
         border-top-left-radius: 0px;
         border-top-right-radius: 0px;
         display: inline-block;
