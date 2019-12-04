@@ -1,18 +1,16 @@
 p{
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    
     font-size: 110%;
     line-height: 2;
 }
 
 #p1{
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: 'Indie Flower', cursive;
     font-weight: lighter;
     line-height: 1;
 }
 #p2{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bold;
-    line-height: 3
+    font-family: 'Tomorrow', sans-serif;
 }
 
 #p3{
