@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Conditional Demo</title>
-  </head>
-  <body>
-    <script type="text/javascript">
-    
+
+<head>
+  <meta charset="UTF-8">
+  <title>Conditional Demo</title>
+</head>
+
+<body>
+  <script type="text/javascript">
     var confirmSteak = confirm("Do you like Steak?");
     var birthYear = prompt("What year were you born?")
     var currentYear = new Date().getFullYear();
-    
+
     if (confirmSteak) {
-        document.write("<h1>Here's a Steak Sandwhich</h1>")
+      document.write("<h1>Here's a Steak Sandwhich</h1>")
     } else {
-        document.write("<h1>Here's a tofu-stirfry.</h1>")
+      document.write("<h1>Here's a tofu-stirfry.</h1>")
     }
-    
-    if((currentYear - birthYear) < 21) {
+
+    if ((currentYear - birthYear) < 21) {
       alert("No Sake for you!");
-    } else{
+    } else {
       alert("Have a nice code drink!");
     }
-</script>
+  </script>
 </body>
+
 </html>
