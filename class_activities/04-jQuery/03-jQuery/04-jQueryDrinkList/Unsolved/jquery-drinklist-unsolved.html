@@ -34,13 +34,8 @@
       //log the index and drink
       console.log("index: " + index + " Drink: " + drinkList);
 
-      var newDiv = $("<div>");
-
-      // jQuery alternative to: newDiv.textContent = "A pleasure to meet you!";
-      newDiv.text(drinkList);
-
-      // jQuery alternative to: document.querySelector("#empty-div").appendChild(newDiv);
-      $("#drink-options").append(newDiv);
+      //add a new div with the drink in it and append to #drink-options
+      $("#drink-options").append($("<div>").text(drinkList));
 
     });
   </script>
