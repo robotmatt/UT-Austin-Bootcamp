@@ -89,13 +89,6 @@
           letterBtn.text(letters[i]);
           $("#buttons").append(letterBtn);
       });
-      // for(i=0; i < letters.length; i++){
-      //   let letterBtn = $("<button>");
-      //     letterBtn.css({class: "letter-button letter letter-button-color"});
-      //     letterBtn.attr("data-letter", letters[i]);
-      //     letterBtn.text(letters[i]);
-      //     $("#buttons").append(letterBtn);
-      // }
 
       $(".letter-button").on("click", function(){
         let fridgeMagnet = $("<div>");
@@ -103,6 +96,10 @@
           fridgeMagnet.text($(this).attr("data-letter"));
           $("#display").append(fridgeMagnet);
 
+      });
+
+      $("#clear").on("click", function(){
+        $("#display").empty();
       });
       // MAJOR TASK #2: ATTACH ON-CLICK EVENTS TO "LETTER" BUTTONS
       // =================================================================================
@@ -121,9 +118,6 @@
 
       // Be sure to test that your code works for this major task, before proceeding to the next one!
 
-      $("#clear").on("click", function(){
-        $("#display").empty();
-      });
       // MAJOR TASK #3: ATTACH ON-CLICK EVENTS TO "CLEAR" BUTTON
       // =================================================================================
 
