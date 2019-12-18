@@ -56,11 +56,13 @@
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
 
       // Here we are provided an initial array of letters.
       // Use this array to dynamically create buttons on the screen.
-      var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "_"];
+      var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
+        "T", "U", "V", "W", "X", "Y", "Z", "_"
+      ];
 
 
       // MAJOR TASK #1: DYNAMICALLY CREATE BUTTONS
@@ -82,25 +84,25 @@
 
       // Be sure to test that your code works for this major task, before proceeding to the next one!
 
-      letters.forEach(function(element, i) {
-        let letterBtn = $("<button>");
-          letterBtn.addClass("letter-button letter letter-button-color");
-          letterBtn.attr("data-letter", letters[i]);
-          letterBtn.text(letters[i]);
-          $("#buttons").append(letterBtn);
+      letters.forEach(function (element, i) {
+        var letterBtn = $("<button>");
+        letterBtn.addClass("letter-button letter letter-button-color");
+        letterBtn.attr("data-letter", element);
+        letterBtn.text(element);
+        $("#buttons").append(letterBtn);
       });
 
-      $(".letter-button").on("click", function(){
-        let fridgeMagnet = $("<div>");
-          fridgeMagnet.addClass("letter fridge-color");
-          fridgeMagnet.text($(this).attr("data-letter"));
-          $("#display").append(fridgeMagnet);
-
+      $(".letter-button").on("click", function () {
+        var fridgeMagnet = $("<div>");
+        fridgeMagnet.addClass("letter fridge-color");
+        fridgeMagnet.text($(this).attr("data-letter"));
+        $("#display").append(fridgeMagnet);
       });
 
-      $("#clear").on("click", function(){
+      $("#clear").on("click", function () {
         $("#display").empty();
       });
+
       // MAJOR TASK #2: ATTACH ON-CLICK EVENTS TO "LETTER" BUTTONS
       // =================================================================================
 
