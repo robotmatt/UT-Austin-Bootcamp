@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>The Magical Cat Button</title>
+</head>
+
+<body>
+  <button id="cat-button">magical cat button</button>
+  <div id="images">
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    // Set the on click for the cat-button...button
+    $("#cat-button").on("click", function() {
+
+      // Set up the query url to use the gify API
+      var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&tag=cats";
+
+      // Sets up the jQuery ajax function to pull from the giphy API
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      })
+
+        // ajax function callback. Do something with the response!
+        .then(function(response) {
+          console.log(response);
+
+          // get the URL of the GIF out of the response
+          var imageUrl = response.data.image_original_url;
+          
+          console.log(imageUrl);
+
+          // Create new img jQuery object
+          var catImage = $("<img>");
+
+          // Set the attributes of the img object
+          catImage.attr("src", imageUrl);
+          catImage.attr("alt", "cat image");
+
+          // Add the image to the page. Prepend does it up front in the div
+          $("#images").prepend(catImage);
+
+          // $("#images").prepend($("<img>").attr("src", imageUrl).attr("alt", "cat image"));
+        });
+    });
+  </script>
+</body>
+
+</html>

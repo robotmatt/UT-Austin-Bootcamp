@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>NY Times Class Activity</title>
+</head>
+
+<body>
+    <div class="container">
+        <header class="blog-header py-3">
+            <div class="row flex-nowrap justify-content-between align-items-center">
+                <div class="col-2 pt-1">
+
+                </div>
+                <div class="col-6 text-center">
+                    <a class="blog-header-logo text-dark" href="#">NY Times Article Search</a>
+                </div>
+                <div class="col-2 pt-1">
+
+                </div>
+            </div>
+        </header>
+        <div class="col-md">
+            <div class="row">
+                <h4 class="mb-3">Search Parameters</h4>
+            </div>
+            <div class="row">
+                <div class="col-md mb-3">
+                    <label for="searchTerm">Search Term</label>
+                    <input type="text" class="form-control" id="searchTerm" placeholder="" value="" required="">
+
+                </div>
+                <div class="col-md mb-3">
+                    <label for="numRecords">Number of Records to Retreive</label>
+                    <select class="custom-select d-block w-100" id="numRecords" required="">
+                        <option value="">Choose...</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md mb-3">
+                    <label for="startYear">Start Year (optional)</label>
+                    <input type="text" class="form-control" id="startYear" placeholder="" value="" required="">
+
+                </div>
+                <div class="col-md mb-3">
+                    <label for="endYear">End Year (optional)</label>
+                    <input type="text" class="form-control" id="endYear" placeholder="" value="" required="">
+
+                </div>
+            </div>
+            <div class="row">
+                <button class="btn btn-primary btn-sm btn-inline col-2 m-3" type="submit" id="search">Search</button>
+                <button class="btn btn-primary btn-sm btn-inline col-2 m-3" type="submit" id="clear-results">Clear Results</button>
+            </div>
+            <div class="row" id="top-articles">
+                <h4 class="mb-3">Top Articles</h4>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <span> </span>
+            </div>
+        </footer>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#search").on("click", function(){
+                var q = $("#searchTerm").val();
+                var num = $("#numRecords").val();
+                var startYear = $("#startYear").val();
+                var endYear = $("#endYear").val();
+                console.log(q + " " + num + " " + startYear + " " + endYear);
+            });
+
+            $("#clear-results").on("click", function(){
+                $("#searchTerm").val("");
+                $("#numRecords").val("");
+                $("#startYear").val("");
+                $("#endYear").val("");
+            });
+        });
+    </script>
+
+</body>
+
+</html>
