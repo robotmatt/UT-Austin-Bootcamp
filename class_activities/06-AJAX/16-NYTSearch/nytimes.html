@@ -27,15 +27,14 @@
                 </div>
             </div>
         </header>
-        <div class="col-md">
-            <div class="row">
-                <h4 class="mb-3">Search Parameters</h4>
-            </div>
-            <div class="row">
+
+        <form class="needs-validation" novalidate>
+            <h4 class="mb-3 mt-3">Search Parameters</h4>
+
+            <div class="form-row">
                 <div class="col-md mb-3">
                     <label for="searchTerm">Search Term</label>
                     <input type="text" class="form-control" id="searchTerm" placeholder="" value="" required="">
-
                 </div>
                 <div class="col-md mb-3">
                     <label for="numRecords">Number of Records to Retreive</label>
@@ -46,41 +45,48 @@
                         <option>3</option>
                         <option>4</option>
                         <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
                     </select>
                 </div>
             </div>
-            <div class="row">
+            <div class="form-row">
                 <div class="col-md mb-3">
                     <label for="startYear">Start Year (optional)</label>
                     <input type="text" class="form-control" id="startYear" placeholder="" value="" required="">
-
                 </div>
                 <div class="col-md mb-3">
                     <label for="endYear">End Year (optional)</label>
                     <input type="text" class="form-control" id="endYear" placeholder="" value="" required="">
-
                 </div>
             </div>
-            <div class="row">
-                <button class="btn btn-primary btn-sm btn-inline col-2 m-3" type="submit" id="search">Search</button>
-                <button class="btn btn-primary btn-sm btn-inline col-2 m-3" type="submit" id="clear-results">Clear Results</button>
+            <div class="form-row">
+                <button class="btn btn-primary btn-sm btn-inline col-2 mr-2 mb-1" type="submit"
+                    id="search">Search</button>
+                <button class="btn btn-primary btn-sm btn-inline col-2 mr-2 mb-1" type="submit" id="clear-results">Clear
+                    Results</button>
             </div>
-            <div class="row" id="top-articles">
-                <h4 class="mb-3">Top Articles</h4>
-            </div>
-        </div>
+        </form>
 
-        <footer class="footer">
-            <div class="container">
-                <span> </span>
-            </div>
-        </footer>
+        <div class="row col-12 mt-3 mb-3">
+            <h4 class="mb-3">Top Articles</h4>
+        </div>
+        <div class="row col-12 mt-3 mb-3" id="top-articles"></div>
+
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <span> </span>
+        </div>
+    </footer>
     </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
     </script>
@@ -88,20 +94,53 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
     <script>
+        function displayArticle(element) {
+            var articleDiv = $("<div>").append($("<h5>").text(element.headline.main));
+            articleDiv.append($("<h6>").text(element.pub_date));
+            articleDiv.append($("<p>").text(element.lead_paragraph));
+            $("#top-articles").append(articleDiv);
+        }
+
         $(document).ready(function () {
-            $("#search").on("click", function(){
+            $("#search").on("click", function (event) {
+                event.preventDefault();
                 var q = $("#searchTerm").val();
                 var num = $("#numRecords").val();
-                var startYear = $("#startYear").val();
-                var endYear = $("#endYear").val();
+                var startDate = $("#startYear").val();
+                var endDate = $("#endYear").val();
                 console.log(q + " " + num + " " + startYear + " " + endYear);
+                var queryURL =
+                    "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + q +
+                    "&api-key=Wn3TgM7mrdJBsMX42D1B6NSkEkIrcHZ9";
+                if (startDate) {
+                    queryURL += "&begin_date=" + startDate + "0101";
+                }
+                if (endDate) {
+                    queryURL += "&end_date=" + endDate + "1231";
+                }
+
+                $.ajax({
+                        url: queryURL,
+                        method: "GET"
+                    })
+                    .then(function (response) {
+                        $("#top-articles").html("");
+                        var articles = response.response.docs;
+                        console.log(articles);
+                        for (var i = 0; i < num; i++) {
+                            displayArticle(articles[i]);
+                        }
+                    });
             });
 
-            $("#clear-results").on("click", function(){
+
+            $("#clear-results").on("click", function (event) {
+                event.preventDefault();
                 $("#searchTerm").val("");
                 $("#numRecords").val("");
                 $("#startYear").val("");
                 $("#endYear").val("");
+                $("#top-articles").html("");
             });
         });
     </script>
