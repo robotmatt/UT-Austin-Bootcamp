@@ -12,13 +12,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <!-- Favicons -->
-  <link rel="apple-touch-icon" href="/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-  <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-  <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-  <link rel="manifest" href="/docs/4.4/assets/img/favicons/manifest.json">
-  <link rel="mask-icon" href="/docs/4.4/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
-  <link rel="icon" href="/docs/4.4/assets/img/favicons/favicon.ico">
-  <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
+
   <meta name="theme-color" content="#563d7c">
 
 
@@ -39,7 +33,6 @@
     }
   </style>
   <!-- Custom styles for this template -->
-  <link href="form-validation.css" rel="stylesheet">
 </head>
 
 <body class="bg-light">
@@ -60,25 +53,11 @@
               <th>Months Worked</th>
               <th>Monthly Rate ($)</th>
               <th>Total Billed ($)</th>
+              <th></th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>1,001</td>
-              <td>Lorem</td>
-              <td>ipsum</td>
-              <td>dolor</td>
-              <td>sit</td>
-              <td>elit</td>
-            </tr>
-            <tr>
-              <td>1,002</td>
-              <td>amet</td>
-              <td>consectetur</td>
-              <td>adipiscing</td>
-              <td>elit</td>
-              <td>elit</td>
-            </tr>
+          <tbody id="table-body">
+
 
           </tbody>
         </table>
@@ -108,8 +87,8 @@
           </div>
           <div class="row">
             <div class="col-md-6 mb-3">
-              <label for="date">Start Date (MM/DD/YYY)</label>
-              <input type="text" class="form-control" id="date" placeholder="" value="" required>
+              <label for="start-date">Start Date (MM/DD/YYYY)</label>
+              <input type="text" class="form-control" id="start-date" placeholder="" value="" required>
               <div class="invalid-feedback">
                 Valid Start Date is required.
               </div>
@@ -126,7 +105,7 @@
     </div>
 
     <hr class="mb-4">
-    <button class="btn btn-primary btn-lg btn-block col-md-2" type="submit">Add Employee</button>
+    <button class="btn btn-primary btn-lg btn-block col-md-2" type="submit" id="add-user">Add Employee</button>
     </form>
   </div>
   </div>
@@ -141,31 +120,146 @@
   </footer>
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-  </script>
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
   </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
   </script>
+  <script src="moment.js"></script>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-database.js"></script>
   <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyBPU6Qp2_U7Dvvkm73QrvXAl0afnArY4G4",
+      authDomain: "in-class-1-18.firebaseapp.com",
+      databaseURL: "https://in-class-1-18.firebaseio.com",
+      projectId: "in-class-1-18",
+      storageBucket: "in-class-1-18.appspot.com",
+      messagingSenderId: "892327185604",
+      appId: "1:892327185604:web:f7341de3dc460a8e774d91"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    var database = firebase.database();
+
+    function addRow(empInfo) {
+      let today = moment();
+      //console.log(moment().format("DD/MM/YY hh:mm A"));
+      let startDate = moment(empInfo.startDate);
+      console.log(startDate);
+      let monthsWorked = Math.floor(today.diff(startDate, 'months', true));
+      console.log(monthsWorked);
+
+      let payRate = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }).format(empInfo.payRate);
+
+      let totalPay = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }).format(monthsWorked * empInfo.payRate);
+      console.log(payRate, totalPay);
+
+      let newRow = $("<tr>").attr("id", "tr-" + empInfo.key);
+
+      let newNameTd = $("<td>");
+      newNameTd.append($("<span>").addClass("span-name").text(empInfo.name));
+      newRow.append(newNameTd);
+
+      let newRoleTd = $("<td>");
+      newRoleTd.append($("<span>").addClass("span-role").text(empInfo.role));
+      newRow.append(newRoleTd);
+
+      let newStartDateTd = $("<td>");
+      newStartDateTd.append($("<span>").addClass("span-start").text(empInfo.startDate));
+      newRow.append(newStartDateTd);
+
+      newRow.append($("<td>").text(monthsWorked));
+      newRow.append($("<td>").text(payRate).addClass("td-payRate"));
+      newRow.append($("<td>").text(totalPay));
+      newRow.append($("<button>").text("Delete").attr("data-key", empInfo.key).addClass("delete-btn"));
+      newRow.append($("<button>").text("Update").attr("data-key", empInfo.key).addClass("update-btn"));
+      $("#table-body").append(newRow);
+    }
+
+    function deleteRow(key) {
+      console.log(key);
+      $("#tr-" + key).remove();
+    }
+
+    $(document).on("click", ".delete-btn", function () {
+      let key = $(this).attr("data-key");
+      //console.log(key);
+      firebase.database().ref('/employeeData/' + key).remove();
+    });
+  
+
+    $(document).on("click", ".span-name, .span-role, .span-start", function () {
+      // change the text fields to inputs
+      //console.log($(this).text());
+      let currentText = $(this).text();
+
+      let newInput = $("<input>").val(currentText).addClass("inline-input");
+      $(this).parent().html(newInput);
+    });
+
     $("#add-user").on("click", function (event) {
+
       event.preventDefault();
-      var name = $("#employee-name").val().trim();
-      var role = $("#role").val().trim();
-      var startDate = parseInt($("#start-date").val().trim());
-      var payRate = parseInt($("#monthly-rate").val().trim());
-      database.ref("/employeeData").set({
-        employee: name,
-        role: role,
-        date: startDate,
-        rate: payRate
+
+      let empInfo = {
+        name: $("#employee-name").val().trim(),
+        role: $("#role").val().trim(),
+        startDate: $("#start-date").val().trim(),
+        payRate: parseInt($("#monthly-rate").val().trim())
+      };
+      //console.log(empInfo);
+
+      database.ref("/employeeData").push({
+        name: empInfo.name,
+        role: empInfo.role,
+        startDate: empInfo.startDate,
+        payRate: empInfo.payRate,
+        dateAdded: firebase.database.ServerValue.TIMESTAMP
+      }, function (errorObject) {
+        console.log("Errors handled: " + errorObject);
       });
-      $("#employee-name").text(name);
-      $("#role").text(role);
-      $("#start-date").text(startDate);
-      $("#monthly-rate").text("$" + payRate);
+      $("#employee-name").val("");
+      $("#role").val("");
+      $("#start-date").val("");
+      $("#monthly-rate").val("");
+    });
+
+    database.ref("/employeeData").on('child_added', function (data) {
+      // do things
+      //console.log(data);
+      let empInfo = {
+        name: data.val().name,
+        role: data.val().role,
+        startDate: data.val().startDate,
+        payRate: data.val().payRate,
+        key: data.key
+      };
+      //console.log(empInfo);
+      addRow(empInfo);
+    }, function (errorObject) {
+      console.log("Errors handled: " + errorObject);
+    });
+
+    database.ref("/employeeData").on('child_removed', function (data) {
+      // do things
+      console.log(data);
+      deleteRow(data.key);
+    }, function (errorObject) {
+      console.log("Errors handled: " + errorObject);
     });
   </script>
 </body>
