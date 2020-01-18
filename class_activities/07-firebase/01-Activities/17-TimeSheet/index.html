@@ -69,6 +69,7 @@
     <div class="row">
       <div class="col-md-12 order-md-1">
         <form class="needs-validation" novalidate>
+
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="employee-name">Employee Name</label>
@@ -85,6 +86,7 @@
               </div>
             </div>
           </div>
+
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="start-date">Start Date (MM/DD/YYYY)</label>
@@ -101,12 +103,11 @@
               </div>
             </div>
           </div>
+
+          <button class="btn btn-primary btn-lg btn-block col-md-2" type="submit" id="add-user">Add Employee</button>
+        </form>
       </div>
     </div>
-
-    <hr class="mb-4">
-    <button class="btn btn-primary btn-lg btn-block col-md-2" type="submit" id="add-user">Add Employee</button>
-    </form>
   </div>
   </div>
 
@@ -133,6 +134,9 @@
   <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
 
   <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-database.js"></script>
+
+  <script src="form-validation.js"></script>
+
   <script>
     // Your web app's Firebase configuration
     var firebaseConfig = {
@@ -170,16 +174,16 @@
 
       let newRow = $("<tr>").attr("id", "tr-" + empInfo.key);
 
-      let newNameTd = $("<td>");
-      newNameTd.append($("<span>").addClass("span-name").text(empInfo.name));
+      let newNameTd = $("<td>").attr("data-type", "name");
+      newNameTd.append($("<span>").addClass("span-edit").text(empInfo.name));
       newRow.append(newNameTd);
 
-      let newRoleTd = $("<td>");
-      newRoleTd.append($("<span>").addClass("span-role").text(empInfo.role));
+      let newRoleTd = $("<td>").attr("data-type", "role");
+      newRoleTd.append($("<span>").addClass("span-edit").text(empInfo.role));
       newRow.append(newRoleTd);
 
-      let newStartDateTd = $("<td>");
-      newStartDateTd.append($("<span>").addClass("span-start").text(empInfo.startDate));
+      let newStartDateTd = $("<td>").attr("data-type", "startDate");
+      newStartDateTd.append($("<span>").addClass("span-edit").text(empInfo.startDate));
       newRow.append(newStartDateTd);
 
       newRow.append($("<td>").text(monthsWorked));
@@ -200,42 +204,82 @@
       //console.log(key);
       firebase.database().ref('/employeeData/' + key).remove();
     });
-  
 
-    $(document).on("click", ".span-name, .span-role, .span-start", function () {
+    $(document).on("click", ".update-btn", function () {
+      let key = $(this).attr("data-key");
+      // loop through any inputs and update the DB
+      let row = $(this).parent().parent();
+      let inputs = row.find("input");
+      console.log(inputs);
+
+
+      inputs.each(function () {
+        let value = $(this).val();
+        let variableName = $(this).attr("data-type");
+        console.log(key, value, variableName);
+        database.ref("/employeeData/" + key).update({
+          [variableName]: value
+        }, function (errorObject) {
+          console.log("Errors handled: " + errorObject);
+        });
+        //convert back to spans
+        let newSpan = $("<span>").addClass("span-edit").text(value);
+        $(this).parent().html(newSpan);
+      });
+
+
+
+    });
+
+    $(document).on("click", ".span-edit", function () {
       // change the text fields to inputs
       //console.log($(this).text());
       let currentText = $(this).text();
 
+      let variableName = $(this).parent().attr("data-type");
       let newInput = $("<input>").val(currentText).addClass("inline-input");
+      newInput.attr("data-type", variableName);
+
+
       $(this).parent().html(newInput);
     });
 
     $("#add-user").on("click", function (event) {
 
-      event.preventDefault();
+      //event.preventDefault();
+      if ($("form")[0].checkValidity()) {
+        event.preventDefault();
 
-      let empInfo = {
-        name: $("#employee-name").val().trim(),
-        role: $("#role").val().trim(),
-        startDate: $("#start-date").val().trim(),
-        payRate: parseInt($("#monthly-rate").val().trim())
-      };
-      //console.log(empInfo);
+        let empInfo = {
+          name: $("#employee-name").val().trim(),
+          role: $("#role").val().trim(),
+          startDate: $("#start-date").val().trim(),
+          payRate: parseInt($("#monthly-rate").val().trim()),
+          dateAdded: firebase.database.ServerValue.TIMESTAMP
+        };
+        //console.log(empInfo);
 
-      database.ref("/employeeData").push({
-        name: empInfo.name,
-        role: empInfo.role,
-        startDate: empInfo.startDate,
-        payRate: empInfo.payRate,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP
-      }, function (errorObject) {
-        console.log("Errors handled: " + errorObject);
-      });
-      $("#employee-name").val("");
-      $("#role").val("");
-      $("#start-date").val("");
-      $("#monthly-rate").val("");
+        database.ref("/employeeData").push({
+          name: empInfo.name,
+          role: empInfo.role,
+          startDate: empInfo.startDate,
+          payRate: empInfo.payRate,
+          dateAdded: firebase.database.ServerValue.TIMESTAMP
+        }, function (errorObject) {
+          console.log("Errors handled: " + errorObject);
+        });
+        $("#employee-name").val("");
+        $("#role").val("");
+        $("#start-date").val("");
+        $("#monthly-rate").val("");
+
+        //remove validate from the form
+        $("form").removeClass("was-validated");
+
+      } else {
+        console.log("form not valid");
+      }
+
     });
 
     database.ref("/employeeData").on('child_added', function (data) {
@@ -262,6 +306,7 @@
       console.log("Errors handled: " + errorObject);
     });
   </script>
+
 </body>
 
 </html>
