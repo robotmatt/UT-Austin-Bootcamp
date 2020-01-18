@@ -13,7 +13,8 @@
   <!-- Text with spanID that gets filled with content -->
   <p>After clicking, go to the firebase database to see the click counter go up.</p>
   <p>
-    While clicking, put this html file to the left, and show the firebase database on the right to show how firebase is real time!
+    While clicking, put this html file to the left, and show the firebase database on the right to show how firebase is
+    real time!
   </p>
 
   <!-- Button -->
@@ -27,18 +28,20 @@
   <!-- Firebase Core JavaScript Link -->
   <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
 
-   <!-- Specific Firebase products we want -->
-   <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+  <!-- Specific Firebase products we want -->
+  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
 
   <script>
     // Initialize Firebase
     // This is the code we copied and pasted from our app page
     var config = {
-      apiKey: "AIzaSyAJS4YQWU5DmESeYueG1qH1NGkjv3DncEY",
-      authDomain: "fir-click-counter-7cdb9.firebaseapp.com",
-      databaseURL: "https://fir-click-counter-7cdb9.firebaseio.com",
-      projectId: "fir-click-counter-7cdb9",
-      storageBucket: "fir-click-counter-7cdb9.appspot.com"
+      apiKey: "AIzaSyCPA6e7RDjABGP3BAL789RXpeEiS6UaBhM",
+      authDomain: "in-class-1-16.firebaseapp.com",
+      databaseURL: "https://in-class-1-16.firebaseio.com",
+      projectId: "in-class-1-16",
+      storageBucket: "in-class-1-16.appspot.com",
+      messagingSenderId: "762320947933",
+      appId: "1:762320947933:web:a004b9c29f718cf49e2934"
     };
 
     firebase.initializeApp(config);
@@ -56,7 +59,7 @@
     // ================================================================================
 
     // On Click
-    $("#click-button").on("click", function() {
+    $("#click-button").on("click", function () {
 
       // Add 1 to clickCounter
       clickCounter++;
