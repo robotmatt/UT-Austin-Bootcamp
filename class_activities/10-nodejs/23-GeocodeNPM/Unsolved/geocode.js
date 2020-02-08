@@ -22,7 +22,7 @@ var geocoder = NodeGeocoder(options);
 // Build your address as an array or string
 var address = "";
 process.argv.forEach(function (element, index) {
-  (index > 1) ? address += element + " " : null;
+  (index > 1) ? address += element + " ": null;
 });
 console.log(address);
 
@@ -31,25 +31,20 @@ geocoder.geocode(address, function (err, data) {
   // If there is an error log it.
   if (err) {
     console.log(err);
+  } else {
+    console.log(JSON.stringify(data, null, 2));
+    // Search for the weather at that location
+    weather.find({
+      search: `${data[0].city}, ${data[0].stateCode}`,
+      degreeType: "F"
+    }, function (err, result) {
+
+      // If there is an error log it.
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(JSON.stringify(result, null, 2));
+      }
+    });
   }
-  console.log(JSON.stringify(data, null, 2));
-  // Add weather API call
-  // Then we use the package to search for the weather at a location
-
-  weather.find({
-    search: data[0].zipcode,
-    degreeType: "F"
-  }, function (err, result) {
-
-    // If there is an error log it.
-    if (err) {
-      console.log(err);
-    }
-
-    // If there is no error... then print out the weather data.
-    // We use JSON.stringify to print the data in string format.
-    // We use the JSON.stringify argument of "2" to make the format pretty.
-    // See link here: http://stackoverflow.com/questions/4810841/how-can-i-pretty-print-json-using-javascript
-    console.log(JSON.stringify(result, null, 2));
-  });
 });
