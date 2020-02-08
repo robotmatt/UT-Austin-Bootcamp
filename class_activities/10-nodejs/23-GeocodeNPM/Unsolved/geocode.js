@@ -8,13 +8,16 @@
 // Include the node-geocoder NPM package (Remember to run "npm install node-geocoder"!)
 var NodeGeocoder = require("node-geocoder");
 var weather = require("weather-js");
+
 // Replace with your mapquest consumer API key
 var options = {
   provider: "mapquest",
   apiKey: "YlrspS1OmgD5qrGa9OlmkHVPl5UphQiX"
 };
+
 // Create a geocoder object that can query the mapquest API
 var geocoder = NodeGeocoder(options);
+
 // Take in the command line arguments
 // Build your address as an array or string
 var address = "";
@@ -24,13 +27,12 @@ process.argv.forEach(function (element, index) {
 console.log(address);
 
 // Then use the geocoder object to search the address
-
 geocoder.geocode(address, function (err, data) {
   // If there is an error log it.
   if (err) {
     console.log(err);
   }
-  console.log(data);
+  console.log(JSON.stringify(data, null, 2));
   // Add weather API call
   // Then we use the package to search for the weather at a location
 
@@ -49,6 +51,5 @@ geocoder.geocode(address, function (err, data) {
     // We use the JSON.stringify argument of "2" to make the format pretty.
     // See link here: http://stackoverflow.com/questions/4810841/how-can-i-pretty-print-json-using-javascript
     console.log(JSON.stringify(result, null, 2));
-
   });
 });
