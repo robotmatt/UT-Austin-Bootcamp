@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Star Wars - Express</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Star Wars Express</h1>
+      <h3>The greatest resource in the galaxy for Star Wars statistics!</h3>
+      <hr>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#exampleModal">
+        <span class="fa fa-plus"></span> Add New Character
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add New Character</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Character Name</label>
+                  <input type="text" class="form-control" id="input-name" aria-describedby="emailHelp"
+                    placeholder="Enter name">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Role</label>
+                  <input type="text" class="form-control" id="input-role" aria-describedby="emailHelp"
+                    placeholder="Enter role">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Age</label>
+                  <input type="text" class="form-control" id="input-age" aria-describedby="emailHelp"
+                    placeholder="Enter age">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Force Power</label>
+                  <input type="text" class="form-control" id="input-power" aria-describedby="emailHelp"
+                    placeholder="Enter power">
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
+                  <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+                </div>
+
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="col-12">
+
+        <div class="card mb-4">
+          <div class="card-header">
+            <h3><strong>Character Search</strong></h3>
+          </div>
+          <div class="card-body">
+            <input type="text" id="character-search" class="form-control">
+            <br>
+            <div class="text-right">
+              <button type="submit" class="btn btn-primary btn-md" id="search-btn"><span class="fa fa-search"></span>
+                Search
+                Your Feelings. You know it to be true.</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3><strong>Character Statistics</strong></h3>
+          </div>
+          <div class="card-body">
+            <h2 id="name">Yoda</h2>
+            <div id="stats">
+              <h3><strong>Role:</strong> <span id="role">Jedi Master</span></h3>
+              <h3><strong>Age:</strong> <span id="age">900</span></h3>
+              <h3><strong>Force Points:</strong> <span id="force-points">2000</span></h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    // QUESTION: What is this code doing?
+    $("#search-btn").on("click", function () {
+      var searchedCharacter = $("#character-search").val().trim();
+
+      // Using a RegEx Pattern to remove spaces from searchedCharacter
+      // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+      searchedCharacter = searchedCharacter.replace(/\s+/g, "").toLowerCase();
+
+      // QUESTION: What does $.get do? What are the parameters it is expecting?
+      $.get("/api/characters/" + searchedCharacter, function (data) {
+        console.log(data);
+        if (data) {
+          $("#stats").show();
+          $("#name").text(data.name);
+          $("#role").text(data.role);
+          $("#age").text(data.age);
+          $("#force-points").text(data.forcePoints);
+        } else {
+          $("#name").text("The force is not strong with this one. Your character was not found.");
+          $("#stats").hide();
+        }
+      });
+    });
+    $("#submit-btn").on("click", function (e) {
+      e.preventDefault();
+      let newChar = {
+        routeName: $("#input-name").val().toLowerCase().replace(/\s/g, ''),
+        name: $("#input-name").val(),
+        role: $("#input-role").val(),
+        age: $("#input-age").val(),
+        forcePoints: $("#input-power").val()
+      };
+      console.log(newChar);
+      $.post("/api/characters", newChar).done(function (data) {
+        console.log(JSON.stringify(data) + " has posted successfully!");
+        $("#close").click(); //hack to close the modal
+      });
+      
+    });
+  </script>
+
+</body>
+
+</html>
